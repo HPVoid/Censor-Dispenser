@@ -40,4 +40,25 @@ def censor2(censor_lst, text):
         censored_text = censored_text.replace(word, censor_str)
     return censored_text
 
-print(censor2(proprietary_terms, email_two))
+# print(censor2(proprietary_terms, email_two))
+
+#Point 4
+
+negative_words = ["concerned", "behind", "danger", "dangerous", "alarming", "alarmed", "out of control", "help", "unhappy", "bad", "upset", "awful", "broken", "damage", "damaging", "dismal", "distressed", "distressed", "concerning", "horrible", "horribly", "questionable"]
+
+
+
+
+def censor3(censor_lst, negative_lst, text):
+    negative_lst_cap = []
+    for str in negative_lst:
+        negative_lst_cap.append([str, str.capitalize()])
+    print(negative_lst_cap)
+    censored_text = censor2(censor_lst, text)
+    counter = 0
+    for neg_word in negative_lst_cap:
+        for word in neg_word:
+            counter += text.count(word)
+    return counter
+
+print(censor3(proprietary_terms, negative_words, email_three))
