@@ -6,6 +6,8 @@ email_four = open("email_four.txt", "r").read()
 
 # print(email_one)
 
+#Point 2
+
 def censor(censor_word, text):
     censor_str = "["
     for i in range(0, len(censor_word)):
@@ -16,6 +18,22 @@ def censor(censor_word, text):
 
 
 
-print(censor("learning algorithms", email_one))
+# print(censor("learning algorithms", email_one))
 
-# next chapter
+#Point 3
+
+proprietary_terms = ["she", "personality matrix", "sense of self", "self-preservation", "learning algorithm", "her", "herself"]
+# print(email_two)
+
+def censor2(censor_lst, text):
+    censored_text = text
+    censor_lst_cap = []
+    for word in censor_lst:
+        censor_lst_cap.append(word.capitalize())
+    censor_lst_updated = censor_lst + censor_lst_cap
+
+    for word in censor_lst_updated:
+        censored_text = censored_text.replace(word, "###")
+    return censored_text
+
+print(censor2(proprietary_terms, email_two))
