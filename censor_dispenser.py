@@ -44,21 +44,47 @@ def censor2(censor_lst, text):
 
 #Point 4
 
-negative_words = ["concerned", "behind", "danger", "dangerous", "alarming", "alarmed", "out of control", "help", "unhappy", "bad", "upset", "awful", "broken", "damage", "damaging", "dismal", "distressed", "distressed", "concerning", "horrible", "horribly", "questionable"]
+negative_words = ["concerned", "behind", "danger", "dangerous", "alarming", "alarmed", "out of control", "help", "unhappy", "bad", "upset", "awful", "broken", "damage", "damaging", "dismal", "distressed", "distressing", "concerning", "horrible", "horribly", "questionable"]
 
 
 
 
 def censor3(censor_lst, negative_lst, text):
+    censored_text = censor2(censor_lst, text)
+    # list including capitalized words
     negative_lst_cap = []
     for str in negative_lst:
         negative_lst_cap.append([str, str.capitalize()])
-    print(negative_lst_cap)
-    censored_text = censor2(censor_lst, text)
+
+    # counter for all negative words
     counter = 0
     for neg_word in negative_lst_cap:
         for word in neg_word:
-            counter += text.count(word)
-    return counter
+            counter += censored_text.count(word)
+
+    # find the first negative word + index
+    first_neg_word = []
+    neg_word_index = []
+    for neg_word in negative_lst_cap:
+        for word in neg_word:
+            neg_word_index.append([censored_text.find(word), word])
+    neg_word_index.sort()
+    for word in neg_word_index:
+        if word[0] >= 0:
+            first_neg_word.append(word[0])
+            first_neg_word.append(word[1])
+            break
+
+    # string until after first negative word
+    str_1 = censored_text[:(first_neg_word[0] + len(first_neg_word[1]))]
+
+    # string from after first negative word
+    str_2 = censored_text[(first_neg_word[0] + len(first_neg_word[1])):]
+
+    censored_str_2 = censor2(negative_words, str_2)
+
+    return str_1 + censored_str_2
+
+
 
 print(censor3(proprietary_terms, negative_words, email_three))
