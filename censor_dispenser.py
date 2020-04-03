@@ -33,7 +33,11 @@ def censor2(censor_lst, text):
     censor_lst_updated = censor_lst + censor_lst_cap
 
     for word in censor_lst_updated:
-        censored_text = censored_text.replace(word, "###")
+        censor_str = "["
+        for i in range(0, len(word)):
+            censor_str += "-"
+        censor_str += "]"
+        censored_text = censored_text.replace(word, censor_str)
     return censored_text
 
 print(censor2(proprietary_terms, email_two))
